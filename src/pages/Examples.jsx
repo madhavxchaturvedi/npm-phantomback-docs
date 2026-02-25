@@ -1,18 +1,22 @@
-import CodeBlock from '../components/CodeBlock';
-import './DocPage.css';
+import CodeBlock from '@/components/CodeBlock';
+import NextPageLink from '@/components/docs/NextPageLink';
 
 export default function Examples() {
   return (
-    <article className="doc-page">
-      <div className="doc-badge">Examples</div>
-      <h1>Real-World Examples</h1>
-      <p className="doc-lead">
+    <article>
+      <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-4">
+        Examples
+      </span>
+      <h1 className="text-3xl font-bold tracking-tight text-foreground mb-3">Real-World Examples</h1>
+      <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
         Ready-to-use configurations for common application domains.
-        Copy any of these as your <code>phantom.config.js</code>.
+        Copy any of these as your <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">phantom.config.js</code>.
       </p>
 
-      <h2 id="blog">Blog Platform</h2>
-      <p>A blog with users, posts, comments, and categories.</p>
+      <h2 id="blog" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Blog Platform
+      </h2>
+      <p className="text-muted-foreground mb-4">A blog with users, posts, comments, and categories.</p>
       <CodeBlock language="javascript" title="phantom.config.js" code={`export default {
   port: 3777,
   prefix: '/api',
@@ -60,8 +64,10 @@ export default function Examples() {
   },
 };`} />
 
-      <h2 id="ecommerce">E-Commerce Store</h2>
-      <p>Products, categories, orders, and reviews for a typical online store.</p>
+      <h2 id="ecommerce" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        E-Commerce Store
+      </h2>
+      <p className="text-muted-foreground mb-4">Products, categories, orders, and reviews for a typical online store.</p>
       <CodeBlock language="javascript" title="phantom.config.js" code={`export default {
   port: 3777,
   prefix: '/api',
@@ -119,8 +125,10 @@ export default function Examples() {
   },
 };`} />
 
-      <h2 id="hospital">Hospital Management</h2>
-      <p>Doctors, patients, appointments, and departments.</p>
+      <h2 id="hospital" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Hospital Management
+      </h2>
+      <p className="text-muted-foreground mb-4">Doctors, patients, appointments, and departments.</p>
       <CodeBlock language="javascript" title="phantom.config.js" code={`export default {
   port: 3777,
   prefix: '/api',
@@ -170,8 +178,10 @@ export default function Examples() {
   },
 };`} />
 
-      <h2 id="elearning">E-Learning Platform</h2>
-      <p>Courses, instructors, students, and reviews.</p>
+      <h2 id="elearning" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        E-Learning Platform
+      </h2>
+      <p className="text-muted-foreground mb-4">Courses, instructors, students, and reviews.</p>
       <CodeBlock language="javascript" title="phantom.config.js" code={`export default {
   port: 3777,
   prefix: '/api',
@@ -222,8 +232,10 @@ export default function Examples() {
   },
 };`} />
 
-      <h2 id="food-delivery">Food Delivery App</h2>
-      <p>Restaurants, menu items, and orders.</p>
+      <h2 id="food-delivery" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Food Delivery App
+      </h2>
+      <p className="text-muted-foreground mb-4">Restaurants, menu items, and orders.</p>
       <CodeBlock language="javascript" title="phantom.config.js" code={`export default {
   port: 3777,
   prefix: '/api',
@@ -265,8 +277,10 @@ export default function Examples() {
   },
 };`} />
 
-      <h2 id="social-media">Social Media App</h2>
-      <p>Users, posts, likes, and messages.</p>
+      <h2 id="social-media" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Social Media App
+      </h2>
+      <p className="text-muted-foreground mb-4">Users, posts, likes, and messages.</p>
       <CodeBlock language="javascript" title="phantom.config.js" code={`export default {
   port: 3777,
   prefix: '/api',
@@ -314,10 +328,7 @@ export default function Examples() {
   },
 };`} />
 
-      <div className="doc-next">
-        <p>Next up:</p>
-        <a href="/docs/cli">CLI Reference →</a>
-      </div>
+      <NextPageLink to="/docs/cli" label="CLI Reference" />
     </article>
   );
 }

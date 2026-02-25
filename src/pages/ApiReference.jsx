@@ -1,73 +1,52 @@
-import CodeBlock from '../components/CodeBlock';
-import './DocPage.css';
+import CodeBlock from '@/components/CodeBlock';
+import EndpointCard from '@/components/docs/EndpointCard';
+import ParamTable from '@/components/docs/ParamTable';
+import NextPageLink from '@/components/docs/NextPageLink';
 
 export default function ApiReference() {
   return (
-    <article className="doc-page">
-      <div className="doc-badge">Reference</div>
-      <h1>API Reference</h1>
-      <p className="doc-lead">
+    <article>
+      <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-4">
+        Reference
+      </span>
+      <h1 className="text-3xl font-bold tracking-tight text-foreground mb-3">API Reference</h1>
+      <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
         Complete reference for all endpoints, query parameters, and response formats.
       </p>
 
-      <h2 id="crud">CRUD Endpoints</h2>
-      <p>Every resource automatically gets these endpoints:</p>
+      <h2 id="crud" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        CRUD Endpoints
+      </h2>
+      <p className="text-muted-foreground mb-4">Every resource automatically gets these endpoints:</p>
 
-      <div className="endpoint">
-        <span className="endpoint-method get">GET</span>
-        <span className="endpoint-path">/api/:resource</span>
-        <p>List all records with pagination, filtering, sorting, and search.</p>
-      </div>
+      <EndpointCard method="GET" path="/api/:resource">
+        List all records with pagination, filtering, sorting, and search.
+      </EndpointCard>
+      <EndpointCard method="GET" path="/api/:resource/:id">
+        Get a single record by ID.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/api/:resource">
+        Create a new record. Send JSON body.
+      </EndpointCard>
+      <EndpointCard method="PUT" path="/api/:resource/:id">
+        Replace an entire record.
+      </EndpointCard>
+      <EndpointCard method="PATCH" path="/api/:resource/:id">
+        Partially update a record.
+      </EndpointCard>
+      <EndpointCard method="DELETE" path="/api/:resource/:id">
+        Delete a record.
+      </EndpointCard>
 
-      <div className="endpoint">
-        <span className="endpoint-method get">GET</span>
-        <span className="endpoint-path">/api/:resource/:id</span>
-        <p>Get a single record by ID.</p>
-      </div>
-
-      <div className="endpoint">
-        <span className="endpoint-method post">POST</span>
-        <span className="endpoint-path">/api/:resource</span>
-        <p>Create a new record. Send JSON body.</p>
-      </div>
-
-      <div className="endpoint">
-        <span className="endpoint-method put">PUT</span>
-        <span className="endpoint-path">/api/:resource/:id</span>
-        <p>Replace an entire record.</p>
-      </div>
-
-      <div className="endpoint">
-        <span className="endpoint-method patch">PATCH</span>
-        <span className="endpoint-path">/api/:resource/:id</span>
-        <p>Partially update a record.</p>
-      </div>
-
-      <div className="endpoint">
-        <span className="endpoint-method delete">DELETE</span>
-        <span className="endpoint-path">/api/:resource/:id</span>
-        <p>Delete a record.</p>
-      </div>
-
-      <h2 id="pagination">Pagination</h2>
-      <p>Control pagination with query parameters:</p>
-      <div className="param-grid">
-        <div className="param-card">
-          <span className="param-name">?page=1</span>
-          <span className="param-type">number</span>
-          <p>Page number (1-based). Default: 1</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?limit=10</span>
-          <span className="param-type">number</span>
-          <p>Records per page. Default: 10. Max: 100</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?offset=20</span>
-          <span className="param-type">number</span>
-          <p>Skip N records. Alternative to page-based pagination.</p>
-        </div>
-      </div>
+      <h2 id="pagination" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Pagination
+      </h2>
+      <p className="text-muted-foreground mb-4">Control pagination with query parameters:</p>
+      <ParamTable params={[
+        { name: '?page=1', type: 'number', children: 'Page number (1-based). Default: 1' },
+        { name: '?limit=10', type: 'number', children: 'Records per page. Default: 10. Max: 100' },
+        { name: '?offset=20', type: 'number', children: 'Skip N records. Alternative to page-based pagination.' },
+      ]} />
       <CodeBlock language="bash" title="Example" code={`curl "http://localhost:3777/api/posts?page=2&limit=5"`} />
       <CodeBlock language="json" title="Response" code={`{
   "data": [ ... ],
@@ -81,38 +60,19 @@ export default function ApiReference() {
   }
 }`} />
 
-      <h2 id="filtering">Filtering</h2>
-      <p>Filter records by field values:</p>
-      <div className="param-grid">
-        <div className="param-card">
-          <span className="param-name">?field=value</span>
-          <p>Exact match</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?field_gte=10</span>
-          <p>Greater than or equal</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?field_lte=100</span>
-          <p>Less than or equal</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?field_gt=10</span>
-          <p>Greater than</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?field_lt=100</span>
-          <p>Less than</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?field_ne=value</span>
-          <p>Not equal</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?field_like=text</span>
-          <p>Contains substring (case-insensitive)</p>
-        </div>
-      </div>
+      <h2 id="filtering" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Filtering
+      </h2>
+      <p className="text-muted-foreground mb-4">Filter records by field values:</p>
+      <ParamTable params={[
+        { name: '?field=value', children: 'Exact match' },
+        { name: '?field_gte=10', children: 'Greater than or equal' },
+        { name: '?field_lte=100', children: 'Less than or equal' },
+        { name: '?field_gt=10', children: 'Greater than' },
+        { name: '?field_lt=100', children: 'Less than' },
+        { name: '?field_ne=value', children: 'Not equal' },
+        { name: '?field_like=text', children: 'Contains substring (case-insensitive)' },
+      ]} />
       <CodeBlock language="bash" title="Examples" code={`# Exact match
 curl "http://localhost:3777/api/products?category=Electronics"
 
@@ -122,58 +82,46 @@ curl "http://localhost:3777/api/products?price_gte=10&price_lte=50"
 # Contains text
 curl "http://localhost:3777/api/posts?title_like=javascript"`} />
 
-      <h2 id="sorting">Sorting</h2>
-      <p>Sort results by one or more fields:</p>
-      <div className="param-grid">
-        <div className="param-card">
-          <span className="param-name">?sort=field</span>
-          <p>Sort ascending</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?sort=-field</span>
-          <p>Sort descending (prefix with -)</p>
-        </div>
-        <div className="param-card">
-          <span className="param-name">?sort=field1,-field2</span>
-          <p>Multi-field sort (comma-separated)</p>
-        </div>
-      </div>
+      <h2 id="sorting" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Sorting
+      </h2>
+      <p className="text-muted-foreground mb-4">Sort results by one or more fields:</p>
+      <ParamTable params={[
+        { name: '?sort=field', children: 'Sort ascending' },
+        { name: '?sort=-field', children: 'Sort descending (prefix with -)' },
+        { name: '?sort=field1,-field2', children: 'Multi-field sort (comma-separated)' },
+      ]} />
       <CodeBlock language="bash" title="Examples" code={`# Sort by price ascending
 curl "http://localhost:3777/api/products?sort=price"
 
 # Sort by rating descending, then name ascending
 curl "http://localhost:3777/api/products?sort=-rating,name"`} />
 
-      <h2 id="search">Full-Text Search</h2>
-      <p>Search across all string fields in a resource:</p>
-      <div className="param-grid">
-        <div className="param-card">
-          <span className="param-name">?q=term</span>
-          <p>Searches all string fields for the term (case-insensitive)</p>
-        </div>
-      </div>
+      <h2 id="search" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Full-Text Search
+      </h2>
+      <p className="text-muted-foreground mb-4">Search across all string fields in a resource:</p>
+      <ParamTable params={[
+        { name: '?q=term', children: 'Searches all string fields for the term (case-insensitive)' },
+      ]} />
       <CodeBlock language="bash" title="Example" code={`curl "http://localhost:3777/api/users?q=john"`} />
 
-      <h2 id="auth-endpoints">Authentication</h2>
-      <p>When a resource has <code>auth: true</code>, these endpoints are added:</p>
+      <h2 id="auth-endpoints" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Authentication
+      </h2>
+      <p className="text-muted-foreground mb-4">
+        When a resource has <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">auth: true</code>, these endpoints are added:
+      </p>
 
-      <div className="endpoint">
-        <span className="endpoint-method post">POST</span>
-        <span className="endpoint-path">/api/auth/register</span>
-        <p>Register a new user. Send <code>{"{ email, password, ...fields }"}</code></p>
-      </div>
-
-      <div className="endpoint">
-        <span className="endpoint-method post">POST</span>
-        <span className="endpoint-path">/api/auth/login</span>
-        <p>Login with email & password. Returns JWT token.</p>
-      </div>
-
-      <div className="endpoint">
-        <span className="endpoint-method get">GET</span>
-        <span className="endpoint-path">/api/auth/me</span>
-        <p>Get current user. Requires <code>Authorization: Bearer &lt;token&gt;</code></p>
-      </div>
+      <EndpointCard method="POST" path="/api/auth/register">
+        Register a new user. Send <code className="text-sm font-mono">{'{ email, password, ...fields }'}</code>
+      </EndpointCard>
+      <EndpointCard method="POST" path="/api/auth/login">
+        Login with email & password. Returns JWT token.
+      </EndpointCard>
+      <EndpointCard method="GET" path="/api/auth/me">
+        Get current user. Requires <code className="text-sm font-mono">Authorization: Bearer {'<token>'}</code>
+      </EndpointCard>
 
       <CodeBlock language="javascript" title="Auth flow example" code={`// Register
 const reg = await fetch('/api/auth/register', {
@@ -192,28 +140,27 @@ const users = await fetch('/api/users', {
   headers: { Authorization: \`Bearer \${token}\` },
 });`} />
 
-      <h2 id="nested-routes">Nested Routes</h2>
-      <p>
-        When a resource has a <code>relation</code> field, PhantomBack auto-generates
-        nested routes:
+      <h2 id="nested-routes" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Nested Routes
+      </h2>
+      <p className="text-muted-foreground mb-4">
+        When a resource has a <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">relation</code> field, PhantomBack auto-generates nested routes:
       </p>
-      <div className="endpoint">
-        <span className="endpoint-method get">GET</span>
-        <span className="endpoint-path">/api/:parent/:id/:children</span>
-        <p>Get all child records belonging to a parent.</p>
-      </div>
+      <EndpointCard method="GET" path="/api/:parent/:id/:children">
+        Get all child records belonging to a parent.
+      </EndpointCard>
       <CodeBlock language="bash" title="Example" code={`# Get all comments for post #3
 curl "http://localhost:3777/api/posts/3/comments"
 
 # Get all posts by user #5
 curl "http://localhost:3777/api/users/5/posts"`} />
 
-      <h2 id="health-check">Health Check</h2>
-      <div className="endpoint">
-        <span className="endpoint-method get">GET</span>
-        <span className="endpoint-path">/health</span>
-        <p>Returns server status, uptime, and resource counts.</p>
-      </div>
+      <h2 id="health-check" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Health Check
+      </h2>
+      <EndpointCard method="GET" path="/health">
+        Returns server status, uptime, and resource counts.
+      </EndpointCard>
       <CodeBlock language="json" title="Response" code={`{
   "status": "ok",
   "uptime": 123.456,
@@ -224,8 +171,10 @@ curl "http://localhost:3777/api/users/5/posts"`} />
   }
 }`} />
 
-      <h2 id="response-format">Response Format</h2>
-      <h3>List Response</h3>
+      <h2 id="response-format" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Response Format
+      </h2>
+      <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">List Response</h3>
       <CodeBlock language="json" code={`{
   "data": [ { "id": 1, "name": "..." }, ... ],
   "meta": {
@@ -238,21 +187,18 @@ curl "http://localhost:3777/api/users/5/posts"`} />
   }
 }`} />
 
-      <h3>Single Record</h3>
+      <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">Single Record</h3>
       <CodeBlock language="json" code={`{
   "data": { "id": 1, "name": "John", "email": "john@example.com" }
 }`} />
 
-      <h3>Error Response</h3>
+      <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">Error Response</h3>
       <CodeBlock language="json" code={`{
   "error": "Not found",
   "status": 404
 }`} />
 
-      <div className="doc-next">
-        <p>Next up:</p>
-        <a href="/docs/examples">Real-World Examples →</a>
-      </div>
+      <NextPageLink to="/docs/examples" label="Real-World Examples" />
     </article>
   );
 }

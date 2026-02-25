@@ -1,33 +1,54 @@
-import CodeBlock from '../components/CodeBlock';
-import './DocPage.css';
+import CodeBlock from '@/components/CodeBlock';
+import Callout from '@/components/docs/Callout';
+import NextPageLink from '@/components/docs/NextPageLink';
 
 export default function CliReference() {
   return (
-    <article className="doc-page">
-      <div className="doc-badge">Reference</div>
-      <h1>CLI Reference</h1>
-      <p className="doc-lead">
+    <article>
+      <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-4">
+        Reference
+      </span>
+      <h1 className="text-3xl font-bold tracking-tight text-foreground mb-3">CLI Reference</h1>
+      <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
         Complete reference for the PhantomBack command-line interface.
       </p>
 
-      <h2 id="start">phantomback start</h2>
-      <p>Start the PhantomBack API server.</p>
+      <h2 id="start" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        phantomback start
+      </h2>
+      <p className="text-muted-foreground mb-4">Start the PhantomBack API server.</p>
       <CodeBlock language="bash" title="Usage" code={`phantomback start [options]`} />
 
-      <h3>Options</h3>
-      <table className="doc-table">
-        <thead>
-          <tr><th>Flag</th><th>Description</th><th>Default</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>--zero, -z</code></td><td>Start with zero-config defaults (5 resources, realistic data)</td><td>false</td></tr>
-          <tr><td><code>--port, -p</code></td><td>Custom port number</td><td>3777</td></tr>
-          <tr><td><code>--config, -c</code></td><td>Path to config file</td><td>phantom.config.js</td></tr>
-          <tr><td><code>--prefix</code></td><td>API route prefix</td><td>/api</td></tr>
-        </tbody>
-      </table>
+      <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">Options</h3>
+      <div className="overflow-x-auto my-4">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="text-left py-3 px-4 font-semibold text-foreground">Flag</th>
+              <th className="text-left py-3 px-4 font-semibold text-foreground">Description</th>
+              <th className="text-left py-3 px-4 font-semibold text-foreground">Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['--zero, -z', 'Start with zero-config defaults (5 resources, realistic data)', 'false'],
+              ['--port, -p', 'Custom port number', '3777'],
+              ['--config, -c', 'Path to config file', 'phantom.config.js'],
+              ['--prefix', 'API route prefix', '/api'],
+            ].map(([flag, desc, def], i) => (
+              <tr key={i} className="border-b border-border/50 hover:bg-muted/50 transition-colors">
+                <td className="py-2.5 px-4">
+                  <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">{flag}</code>
+                </td>
+                <td className="py-2.5 px-4 text-muted-foreground">{desc}</td>
+                <td className="py-2.5 px-4 text-muted-foreground">{def}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <h3>Examples</h3>
+      <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">Examples</h3>
       <CodeBlock language="bash" title="Terminal" code={`# Zero-config mode
 phantomback start --zero
 
@@ -43,16 +64,21 @@ phantomback start --zero --prefix /v1
 # Combine options
 phantomback start -z -p 8080 --prefix /api/v2`} />
 
-      <h2 id="init">phantomback init</h2>
-      <p>Generate a starter <code>phantom.config.js</code> in the current directory.</p>
+      <h2 id="init" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        phantomback init
+      </h2>
+      <p className="text-muted-foreground mb-4">
+        Generate a starter <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">phantom.config.js</code> in the current directory.
+      </p>
       <CodeBlock language="bash" title="Usage" code={`phantomback init`} />
-      <p>
-        This creates a complete example config with users, posts, and comments
-        to get you started quickly. Edit the file to match your project needs.
+      <p className="text-muted-foreground mt-4">
+        This creates a complete example config with users, posts, and comments to get you started quickly. Edit the file to match your project needs.
       </p>
 
-      <h2 id="npx">Using with npx</h2>
-      <p>Run PhantomBack without installing globally:</p>
+      <h2 id="npx" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Using with npx
+      </h2>
+      <p className="text-muted-foreground mb-4">Run PhantomBack without installing globally:</p>
       <CodeBlock language="bash" title="Terminal" code={`# Start with zero-config
 npx phantomback start --zero
 
@@ -62,8 +88,10 @@ npx phantomback init
 # Custom port with npx
 npx phantomback start --zero --port 5000`} />
 
-      <h2 id="programmatic">Programmatic API</h2>
-      <p>Import and use PhantomBack in your Node.js scripts:</p>
+      <h2 id="programmatic" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Programmatic API
+      </h2>
+      <p className="text-muted-foreground mb-4">Import and use PhantomBack in your Node.js scripts:</p>
       <CodeBlock language="javascript" title="server.js" code={`import { createPhantom, createPhantomZero } from 'phantomback';
 
 // Quick start — zero config
@@ -91,24 +119,20 @@ server.stop();    // Shut down the server
 server.reset();   // Reset all data to initial seed
 server.getStore(); // Get raw store data as JSON`} />
 
-      <h2 id="tips">Tips</h2>
-      <div className="callout tip">
-        <strong>Tip:</strong> Use <code>--zero</code> mode during hackathons or initial prototyping,
-        then switch to a config file when you need custom resources.
-      </div>
-      <div className="callout info">
-        <strong>Note:</strong> PhantomBack requires Node.js 18 or later. All data is stored in-memory
-        and resets when the server restarts.
-      </div>
-      <div className="callout warning">
-        <strong>Warning:</strong> PhantomBack is a development tool. Never use it as a production backend —
-        data is not persisted and there is no real security.
-      </div>
+      <h2 id="tips" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Tips
+      </h2>
+      <Callout type="tip">
+        Use <code className="text-sm font-mono bg-muted px-1 py-0.5 rounded">--zero</code> mode during hackathons or initial prototyping, then switch to a config file when you need custom resources.
+      </Callout>
+      <Callout type="info">
+        PhantomBack requires Node.js 18 or later. All data is stored in-memory and resets when the server restarts.
+      </Callout>
+      <Callout type="warning">
+        PhantomBack is a development tool. Never use it as a production backend — data is not persisted and there is no real security.
+      </Callout>
 
-      <div className="doc-next">
-        <p>Back to:</p>
-        <a href="/">← Home</a>
-      </div>
+      <NextPageLink to="/" label="Home" direction="prev" />
     </article>
   );
 }
