@@ -1,0 +1,77 @@
+.code-block {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.code-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: all 0.15s;
+}
+
+.copy-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.copy-btn.floating {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: var(--surface2);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.code-block:hover .copy-btn.floating {
+  opacity: 1;
+}
+
+.code-block pre {
+  padding: 16px !important;
+  margin: 0;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.line-number {
+  display: inline-block;
+  width: 28px;
+  color: var(--text-muted);
+  opacity: 0.4;
+  user-select: none;
+  text-align: right;
+  margin-right: 16px;
+  font-size: 0.8rem;
+}
