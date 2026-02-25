@@ -94,10 +94,10 @@ export default function Home() {
           <motion.h1 variants={fadeUp} transition={{ duration: 0.35 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-foreground mb-8"
           >
-            Instant Fake Backend{' '}
             <span className="bg-gradient-to-r from-primary via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-              for Frontend Developers
-            </span>
+              Instant Fake Backend
+            </span>{' '}
+            in Seconds
           </motion.h1>
 
           {/* Description */}
