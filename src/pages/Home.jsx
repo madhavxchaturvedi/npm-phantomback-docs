@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import {
   Ghost, Zap, Shield, Database, Search, Terminal, Layers,
-  ArrowRight, Copy, Check, Github, Package,
+  ArrowRight, Copy, Check, Github, Package, Star,
 } from 'lucide-react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ThemeToggle';
+import AnimatedTerminal from '@/components/AnimatedTerminal';
+import { useGitHubStars } from '@/hooks/useGitHubStars';
+import { useToast } from '@/components/Toast';
 
 const features = [
   { icon: Zap, title: 'Zero Config', desc: 'Run one command and get a full REST API with realistic data. No setup needed.', color: 'text-amber-400', bg: 'bg-amber-500/10' },
@@ -25,12 +28,14 @@ const stagger = { animate: { transition: { staggerChildren: 0.05 } } };
 
 function CopyCommand() {
   const [copied, setCopied] = useState(false);
+  const toast = useToast();
   const cmd = 'npx phantomback start --zero';
   return (
     <button
       onClick={() => {
         navigator.clipboard.writeText(cmd);
         setCopied(true);
+        toast('Copied to clipboard!', 'copied');
         setTimeout(() => setCopied(false), 2000);
       }}
       className="inline-flex items-center gap-3 rounded-xl border border-border/60 bg-card/80 px-5 py-3 hover:border-primary/40 transition-all cursor-pointer group backdrop-blur-sm"
@@ -45,6 +50,7 @@ function CopyCommand() {
 }
 
 export default function Home() {
+  const stars = useGitHubStars();
   return (
     <div className="min-h-screen bg-background">
       {/* ─── Navbar ─── */}
@@ -62,8 +68,14 @@ export default function Home() {
               Docs
             </Link>
             <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
-              className="flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+              className="flex items-center gap-1.5 h-9 px-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors text-sm">
               <Github size={17} />
+              {stars !== null && (
+                <span className="flex items-center gap-1 text-xs font-medium">
+                  <Star size={12} className="text-amber-400 fill-amber-400" />
+                  {stars}
+                </span>
+              )}
             </a>
             <a href="https://www.npmjs.com/package/phantomback" target="_blank" rel="noreferrer"
               className="flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
@@ -81,51 +93,69 @@ export default function Home() {
         {/* Glow */}
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(circle,var(--color-primary)_0%,transparent_60%)] opacity-[0.06] pointer-events-none" />
 
-        <motion.div className="relative z-10 text-center max-w-3xl" initial="initial" animate="animate" variants={stagger}>
-          {/* Badge */}
-          <motion.div variants={fadeUp} transition={{ duration: 0.3 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary mb-8">
-              <Ghost size={14} />
-              Open Source &middot; MIT License
-            </span>
-          </motion.div>
+        <motion.div className="relative z-10 w-full max-w-6xl mx-auto" initial="initial" animate="animate" variants={stagger}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text content */}
+            <div className="text-center lg:text-left">
+              {/* Badge */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.3 }}>
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary mb-8">
+                  <Ghost size={14} />
+                  Open Source &middot; MIT License
+                </span>
+              </motion.div>
 
-          {/* Title */}
-          <motion.h1 variants={fadeUp} transition={{ duration: 0.35 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-foreground mb-8"
-          >
-            <span className="bg-gradient-to-r from-primary via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-              Instant Fake Backend
-            </span>{' '}
-            in Seconds
-          </motion.h1>
+              {/* Title */}
+              <motion.h1 variants={fadeUp} transition={{ duration: 0.35 }}
+                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-foreground mb-8"
+              >
+                <span className="bg-gradient-to-r from-primary via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+                  Instant Fake Backend
+                </span>{' '}
+                in Seconds
+              </motion.h1>
 
-          {/* Description */}
-          <motion.p variants={fadeUp} transition={{ duration: 0.35 }}
-            className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl mx-auto"
-          >
-            Generate a full REST API with realistic data, authentication,
-            pagination, search, filtering & nested routes — in seconds.
-          </motion.p>
+              {/* Description */}
+              <motion.p variants={fadeUp} transition={{ duration: 0.35 }}
+                className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl lg:max-w-none"
+              >
+                Generate a full REST API with realistic data, authentication,
+                pagination, search, filtering & nested routes — in seconds.
+              </motion.p>
 
-          {/* Copy command */}
-          <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="mb-10">
-            <CopyCommand />
-          </motion.div>
+              {/* Copy command */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="mb-6">
+                <CopyCommand />
+              </motion.div>
 
-          {/* CTAs */}
-          <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="flex items-center justify-center gap-4 flex-wrap">
-            <Link to="/docs/getting-started"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 hover:brightness-110 transition-all"
-            >
-              Get Started <ArrowRight size={16} />
-            </Link>
-            <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-border px-7 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all"
-            >
-              <Github size={16} /> GitHub
-            </a>
-          </motion.div>
+              {/* Shields badges */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="flex items-center gap-2.5 flex-wrap justify-center lg:justify-start mb-8">
+                <img src="https://img.shields.io/npm/v/phantomback?style=flat-square&color=7c3aed&label=npm" alt="npm version" className="h-5" />
+                <img src="https://img.shields.io/npm/dm/phantomback?style=flat-square&color=22c55e&label=downloads" alt="npm downloads" className="h-5" />
+                <img src="https://img.shields.io/bundlephobia/minzip/phantomback?style=flat-square&color=3b82f6&label=size" alt="bundle size" className="h-5" />
+                <img src="https://img.shields.io/github/license/maddydevgits/phantomback?style=flat-square&color=64748b" alt="license" className="h-5" />
+              </motion.div>
+
+              {/* CTAs */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="flex items-center gap-4 flex-wrap justify-center lg:justify-start">
+                <Link to="/docs/getting-started"
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 hover:brightness-110 transition-all"
+                >
+                  Get Started <ArrowRight size={16} />
+                </Link>
+                <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-border px-7 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all"
+                >
+                  <Github size={16} /> GitHub
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Right: Animated Terminal */}
+            <motion.div variants={fadeUp} transition={{ duration: 0.5 }} className="hidden lg:block">
+              <AnimatedTerminal />
+            </motion.div>
+          </div>
         </motion.div>
 
         {/* Scroll indicator */}

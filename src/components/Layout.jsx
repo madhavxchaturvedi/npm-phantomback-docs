@@ -1,9 +1,12 @@
 import { NavLink, Outlet, Link, useLocation } from 'react-router-dom';
-import { Ghost, BookOpen, Settings, Code2, Layers, Terminal, Github, Menu, X, Search, Package, History, Play } from 'lucide-react';
+import { Ghost, BookOpen, Settings, Code2, Layers, Terminal, Github, Menu, X, Search, Package, History, Play, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import ThemeToggle from './ThemeToggle';
 import TableOfContents from './TableOfContents';
+import ReadingProgress from './ReadingProgress';
+import { useGitHubStars } from '@/hooks/useGitHubStars';
 
 const navItems = [
   { to: '/docs/getting-started', label: 'Getting Started', icon: BookOpen },
@@ -18,6 +21,7 @@ const navItems = [
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const stars = useGitHubStars();
 
   useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
 
@@ -71,10 +75,16 @@ export default function Layout() {
             <ThemeToggle />
 
             <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
-              className="flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              className="flex items-center gap-1.5 h-9 px-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors text-sm"
               aria-label="GitHub"
             >
               <Github size={16} />
+              {stars !== null && (
+                <span className="flex items-center gap-1 text-xs font-medium">
+                  <Star size={11} className="text-amber-400 fill-amber-400" />
+                  {stars}
+                </span>
+              )}
             </a>
             <a href="https://www.npmjs.com/package/phantomback" target="_blank" rel="noreferrer"
               className="flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
@@ -120,9 +130,20 @@ export default function Layout() {
 
       {/* ─── Main Content ─── */}
       <main className="lg:pl-64 pt-14">
+        <ReadingProgress />
         <div className="flex">
           <div className="flex-1 min-w-0 max-w-4xl mx-auto px-6 py-12 lg:px-12">
-            <Outlet />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+              >
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
           </div>
           {/* Table of Contents */}
           <div className="hidden xl:block w-56 shrink-0">

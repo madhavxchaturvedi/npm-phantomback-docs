@@ -3,6 +3,7 @@ import { Copy, Check, FileCode, TerminalSquare } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTheme } from './ThemeProvider';
+import { useToast } from './Toast';
 
 const langLabels = {
   javascript: 'JS',
@@ -19,6 +20,7 @@ const langLabels = {
 export default function CodeBlock({ code, language = 'javascript', title, highlightLines = [], terminal = false }) {
   const [copied, setCopied] = useState(false);
   const { theme } = useTheme();
+  const toast = useToast();
 
   const resolvedTheme = theme === 'system'
     ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
@@ -29,6 +31,7 @@ export default function CodeBlock({ code, language = 'javascript', title, highli
   const handleCopy = () => {
     navigator.clipboard.writeText(code.trim());
     setCopied(true);
+    toast('Copied to clipboard!', 'copied');
     setTimeout(() => setCopied(false), 2000);
   };
 
