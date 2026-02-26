@@ -74,7 +74,7 @@ export default function Layout() {
 
             <ThemeToggle />
 
-            <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
+            <a href="https://github.com/madhavxchaturvedi/npm-phantomback" target="_blank" rel="noreferrer"
               className="flex items-center gap-1.5 h-9 px-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors text-sm"
               aria-label="GitHub"
             >

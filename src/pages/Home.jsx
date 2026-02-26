@@ -66,7 +66,7 @@ export default function Home() {
             >
               Docs
             </Link>
-            <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
+            <a href="https://github.com/madhavxchaturvedi/npm-phantomback" target="_blank" rel="noreferrer"
               className="flex items-center gap-1.5 h-9 px-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors text-sm">
               <Github size={17} />
               {stars !== null && (
@@ -134,7 +134,7 @@ export default function Home() {
             >
               Get Started <ArrowRight size={16} />
             </Link>
-            <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
+            <a href="https://github.com/madhavxchaturvedi/npm-phantomback" target="_blank" rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-border px-7 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all"
             >
               <Github size={16} /> GitHub
@@ -242,16 +242,26 @@ export default function Home() {
       </section>
 
       {/* ─── Footer ─── */}
-      <footer className="border-t border-border/60 py-10 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <Ghost size={16} className="text-primary" />
-            Built by <strong className="text-foreground">Madhav Chaturvedi</strong>
+      <footer className="border-t border-border/60 py-12 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
+              <Ghost size={16} className="text-primary" />
+              Built by{' '}
+              <a href="https://madhavxchaturvedi.vercel.app/" target="_blank" rel="noreferrer" className="text-foreground font-semibold hover:text-primary transition-colors">
+                Madhav Chaturvedi
+              </a>
+            </div>
+            <div className="flex items-center gap-5 text-sm text-muted-foreground">
+              <a href="https://github.com/madhavxchaturvedi/npm-phantomback" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
+              <a href="https://www.npmjs.com/package/phantomback" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">npm</a>
+              <a href="https://phantombackxdocs.vercel.app/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Docs</a>
+              <a href="https://www.linkedin.com/in/madhavxchaturvedi/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">LinkedIn</a>
+              <a href="https://www.instagram.com/madhavxchaturvedi" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
+            </div>
           </div>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
-            <a href="https://www.npmjs.com/package/phantomback" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">npm</a>
-            <span>MIT License</span>
+          <div className="mt-6 text-center text-xs text-muted-foreground/60">
+            MIT License · © {new Date().getFullYear()} PhantomBack
           </div>
         </div>
       </footer>

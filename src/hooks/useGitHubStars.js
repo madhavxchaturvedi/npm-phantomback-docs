@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 let cachedStars = null;
 
-export function useGitHubStars(repo = 'maddydevgits/phantomback') {
+export function useGitHubStars(repo = 'madhavxchaturvedi/npm-phantomback') {
   const [stars, setStars] = useState(cachedStars);
 
   useEffect(() => {
