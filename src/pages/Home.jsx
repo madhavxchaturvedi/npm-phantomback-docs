@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
 import {
   Ghost, Zap, Shield, Database, Search, Terminal, Layers,
-  ArrowRight, Copy, Check, Github, Package, Star,
+  ArrowRight, Copy, Check, Github, Package, Star, Sparkles,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ThemeToggle';
-import AnimatedTerminal from '@/components/AnimatedTerminal';
 import { useGitHubStars } from '@/hooks/useGitHubStars';
 import { useToast } from '@/components/Toast';
 
@@ -87,82 +86,71 @@ export default function Home() {
       </header>
 
       {/* ─── Hero ─── */}
-      <section className="relative flex items-center justify-center min-h-screen pt-14 px-6">
+      <section className="relative flex flex-col items-center justify-center min-h-screen pt-14 pb-24 px-6 overflow-hidden">
         {/* Grid background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />
         {/* Glow */}
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(circle,var(--color-primary)_0%,transparent_60%)] opacity-[0.06] pointer-events-none" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(circle,var(--color-primary)_0%,transparent_60%)] opacity-[0.08] pointer-events-none" />
+        {/* Secondary glow */}
+        <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-[radial-gradient(circle,#06b6d4_0%,transparent_60%)] opacity-[0.04] pointer-events-none" />
 
-        <motion.div className="relative z-10 w-full max-w-6xl mx-auto" initial="initial" animate="animate" variants={stagger}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Text content */}
-            <div className="text-center lg:text-left">
-              {/* Badge */}
-              <motion.div variants={fadeUp} transition={{ duration: 0.3 }}>
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary mb-8">
-                  <Ghost size={14} />
-                  Open Source &middot; MIT License
-                </span>
-              </motion.div>
+        <motion.div className="relative z-10 text-center max-w-4xl mx-auto" initial="initial" animate="animate" variants={stagger}>
+          {/* Badge */}
+          <motion.div variants={fadeUp} transition={{ duration: 0.3 }}>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary mb-8">
+              <Sparkles size={13} />
+              Open Source &middot; MIT License
+            </span>
+          </motion.div>
 
-              {/* Title */}
-              <motion.h1 variants={fadeUp} transition={{ duration: 0.35 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-foreground mb-8"
-              >
-                <span className="bg-gradient-to-r from-primary via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-                  Instant Fake Backend
-                </span>{' '}
-                in Seconds
-              </motion.h1>
+          {/* Title */}
+          <motion.h1 variants={fadeUp} transition={{ duration: 0.35 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-foreground mb-6"
+          >
+            <span className="bg-gradient-to-r from-primary via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+              Instant Fake Backend
+            </span>
+            <br />
+            in Seconds
+          </motion.h1>
 
-              {/* Description */}
-              <motion.p variants={fadeUp} transition={{ duration: 0.35 }}
-                className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl lg:max-w-none"
-              >
-                Generate a full REST API with realistic data, authentication,
-                pagination, search, filtering & nested routes — in seconds.
-              </motion.p>
+          {/* Description */}
+          <motion.p variants={fadeUp} transition={{ duration: 0.35 }}
+            className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl mx-auto"
+          >
+            Generate a full REST API with realistic data, authentication,
+            pagination, search, filtering & nested routes — zero config needed.
+          </motion.p>
 
-              {/* Copy command */}
-              <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="mb-6">
-                <CopyCommand />
-              </motion.div>
+          {/* Copy command */}
+          <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="mb-8">
+            <CopyCommand />
+          </motion.div>
 
-              {/* Shields badges */}
-              <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="flex items-center gap-2.5 flex-wrap justify-center lg:justify-start mb-8">
-                <img src="https://img.shields.io/npm/v/phantomback?style=flat-square&color=7c3aed&label=npm" alt="npm version" className="h-5" />
-                <img src="https://img.shields.io/npm/dm/phantomback?style=flat-square&color=22c55e&label=downloads" alt="npm downloads" className="h-5" />
-                <img src="https://img.shields.io/bundlephobia/minzip/phantomback?style=flat-square&color=3b82f6&label=size" alt="bundle size" className="h-5" />
-                <img src="https://img.shields.io/github/license/maddydevgits/phantomback?style=flat-square&color=64748b" alt="license" className="h-5" />
-              </motion.div>
-
-              {/* CTAs */}
-              <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="flex items-center gap-4 flex-wrap justify-center lg:justify-start">
-                <Link to="/docs/getting-started"
-                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 hover:brightness-110 transition-all"
-                >
-                  Get Started <ArrowRight size={16} />
-                </Link>
-                <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-border px-7 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all"
-                >
-                  <Github size={16} /> GitHub
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Right: Animated Terminal */}
-            <motion.div variants={fadeUp} transition={{ duration: 0.5 }} className="hidden lg:block">
-              <AnimatedTerminal />
-            </motion.div>
-          </div>
+          {/* CTAs */}
+          <motion.div variants={fadeUp} transition={{ duration: 0.35 }} className="flex items-center justify-center gap-4 flex-wrap">
+            <Link to="/docs/getting-started"
+              className="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 hover:brightness-110 transition-all"
+            >
+              Get Started <ArrowRight size={16} />
+            </Link>
+            <a href="https://github.com/maddydevgits/phantomback" target="_blank" rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-border px-7 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all"
+            >
+              <Github size={16} /> GitHub
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/40">
-          <span className="text-xs">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-muted-foreground/40 to-transparent" />
-        </div>
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <span className="text-xs font-medium">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-muted-foreground to-transparent" />
+        </motion.div>
       </section>
 
       {/* ─── Features ─── */}
