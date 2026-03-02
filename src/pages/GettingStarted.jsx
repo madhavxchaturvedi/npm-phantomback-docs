@@ -1,4 +1,5 @@
 import CodeBlock from '@/components/CodeBlock';
+import Callout from '@/components/docs/Callout';
 import NextPageLink from '@/components/docs/NextPageLink';
 
 export default function GettingStarted() {
@@ -132,6 +133,17 @@ const server = await createPhantom({
 // server.app    → Express instance
 // server.store  → DataStore instance
 // server.stop() → Shut down`} />
+
+      <h2 id="reality-mode" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Reality Mode (Chaos Testing)
+      </h2>
+      <p className="text-muted-foreground mb-4">
+        Add the <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">--chaos</code> flag to inject real-world instability — latency spikes, random HTTP failures, dropped connections, and more:
+      </p>
+      <CodeBlock language="bash" title="Terminal" code={`phantomback start --zero --chaos`} />
+      <Callout type="tip">
+        Reality Mode helps you build resilient frontends by simulating production failures during development. See the <a href="/docs/reality-mode" className="text-primary hover:underline font-medium">Reality Mode docs</a> for full configuration options.
+      </Callout>
 
       <NextPageLink to="/docs/configuration" label="Configuration Guide" />
     </article>

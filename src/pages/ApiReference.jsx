@@ -1,4 +1,5 @@
 import CodeBlock from '@/components/CodeBlock';
+import Callout from '@/components/docs/Callout';
 import EndpointCard from '@/components/docs/EndpointCard';
 import ParamTable from '@/components/docs/ParamTable';
 import NextPageLink from '@/components/docs/NextPageLink';
@@ -198,7 +199,40 @@ curl "http://localhost:3777/api/users/5/posts"`} />
   "status": 404
 }`} />
 
-      <NextPageLink to="/docs/examples" label="Real-World Examples" />
+      <h2 id="chaos-endpoints" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Reality Mode Endpoints
+      </h2>
+      <p className="text-muted-foreground mb-4">
+        Control chaos injection at runtime (available when Reality Mode is installed):
+      </p>
+
+      <EndpointCard method="GET" path="/_chaos/status">
+        Get current chaos state, configuration, and stats.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/_chaos/enable">
+        Enable Reality Mode at runtime.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/_chaos/disable">
+        Disable Reality Mode.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/_chaos/pause">
+        Temporarily pause chaos without disabling.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/_chaos/resume">
+        Resume chaos after pausing.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/_chaos/configure">
+        Update chaos config at runtime. Send JSON body.
+      </EndpointCard>
+      <EndpointCard method="POST" path="/_chaos/reset">
+        Reset chaos stats counters.
+      </EndpointCard>
+
+      <Callout type="info">
+        See the full <a href="/docs/reality-mode" className="text-primary hover:underline font-medium">Reality Mode documentation</a> for detailed response formats, recipes, and programmatic usage.
+      </Callout>
+
+      <NextPageLink to="/docs/reality-mode" label="Reality Mode" />
     </article>
   );
 }

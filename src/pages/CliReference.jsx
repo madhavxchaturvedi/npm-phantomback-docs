@@ -35,6 +35,9 @@ export default function CliReference() {
               ['--port, -p', 'Custom port number', '3777'],
               ['--config, -c', 'Path to config file', 'phantom.config.js'],
               ['--prefix', 'API route prefix', '/api'],
+              ['--chaos', 'Enable Reality Mode (chaos engineering)', 'false'],
+              ['--chaos-failure <rate>', 'Set failure probability (0-1)', '0.1'],
+              ['--chaos-latency <range>', 'Set latency range in ms (e.g. 100,3000)', '200,5000'],
             ].map(([flag, desc, def], i) => (
               <tr key={i} className="border-b border-border/50 hover:bg-muted/50 transition-colors">
                 <td className="py-2.5 px-4">
@@ -62,7 +65,13 @@ phantomback start --config ./my-config.js
 phantomback start --zero --prefix /v1
 
 # Combine options
-phantomback start -z -p 8080 --prefix /api/v2`} />
+phantomback start -z -p 8080 --prefix /api/v2
+
+# Enable Reality Mode (chaos engineering)
+phantomback start --zero --chaos
+
+# Chaos with custom failure rate and latency
+phantomback start --zero --chaos --chaos-failure 0.3 --chaos-latency 100,3000`} />
 
       <h2 id="init" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         phantomback init
@@ -132,7 +141,7 @@ server.getStore(); // Get raw store data as JSON`} />
         PhantomBack is a development tool. Never use it as a production backend — data is not persisted and there is no real security.
       </Callout>
 
-      <NextPageLink to="/" label="Home" direction="prev" />
+      <NextPageLink to="/docs/changelog" label="Changelog" />
     </article>
   );
 }

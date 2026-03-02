@@ -1,4 +1,5 @@
 import CodeBlock from '@/components/CodeBlock';
+import Callout from '@/components/docs/Callout';
 import NextPageLink from '@/components/docs/NextPageLink';
 
 function FieldTable({ fields }) {
@@ -228,6 +229,30 @@ export default function Configuration() {
 
   resources: { ... },
 };`} />
+
+      <h2 id="chaos" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        Chaos / Reality Mode
+      </h2>
+      <p className="text-muted-foreground mb-4">
+        Inject controlled instability to test frontend resilience. Add a <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">chaos</code> block to your config:
+      </p>
+      <CodeBlock language="javascript" code={`export default {
+  chaos: {
+    enabled: true,                // Master switch
+    latency: { min: 200, max: 5000 }, // Random delay range (ms)
+    failureRate: 0.1,             // 10% chance of 5xx error
+    errorCodes: [500, 502, 503, 504],
+    connectionDropRate: 0.02,     // 2% chance of dropped connection
+    corruptionRate: 0.02,         // 2% chance of malformed response
+    timeoutRate: 0.03,            // 3% chance of hanging request
+    scenarios: ['latency', 'failure', 'drop', 'corruption', 'timeout'],
+  },
+
+  resources: { ... },
+};`} />
+      <Callout type="info">
+        See the full <a href="/docs/reality-mode" className="text-primary hover:underline font-medium">Reality Mode documentation</a> for all options, runtime control API, and recipes.
+      </Callout>
 
       <NextPageLink to="/docs/api-reference" label="API Reference" />
     </article>

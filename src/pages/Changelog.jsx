@@ -2,6 +2,19 @@ import { cn } from '@/lib/utils';
 
 const changelog = [
   {
+    version: '1.1.0',
+    date: '2025-06-25',
+    changes: [
+      { type: 'added', text: 'Reality Mode — chaos engineering simulation engine for controlled instability' },
+      { type: 'added', text: '5 chaos scenarios: latency spikes, random failures, connection drops, response corruption, request timeouts' },
+      { type: 'added', text: 'Runtime control API endpoints (/_chaos/status, enable, disable, pause, resume, configure, reset)' },
+      { type: 'added', text: 'CLI flags: --chaos, --chaos-failure, --chaos-latency' },
+      { type: 'added', text: 'Programmatic chaos engine access via server.getChaos()' },
+      { type: 'added', text: 'Deep-merge for nested chaos config (latency, errorCodes, scenarios)' },
+      { type: 'added', text: 'ChaosEngine, chaosMiddleware, createChaosRoutes library exports' },
+    ],
+  },
+  {
     version: '1.0.0',
     date: '2025-01-15',
     changes: [

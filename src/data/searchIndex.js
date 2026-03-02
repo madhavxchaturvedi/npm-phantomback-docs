@@ -35,12 +35,22 @@ export const searchIndex = [
   { title: 'Social Media App', content: 'Users posts comments messages social media example', section: 'Examples', path: '/docs/examples', heading: 'social-media' },
 
   // CLI Reference
-  { title: 'phantomback start', content: 'Start API server zero port config prefix options', section: 'CLI Reference', path: '/docs/cli', heading: 'start' },
+  { title: 'phantomback start', content: 'Start API server zero port config prefix chaos options', section: 'CLI Reference', path: '/docs/cli', heading: 'start' },
   { title: 'phantomback init', content: 'Generate starter phantom.config.js scaffold', section: 'CLI Reference', path: '/docs/cli', heading: 'init' },
   { title: 'Using with npx', content: 'Run without installing globally npx phantomback', section: 'CLI Reference', path: '/docs/cli', heading: 'npx' },
   { title: 'Programmatic API', content: 'Import createPhantom createPhantomZero server app store stop reset', section: 'CLI Reference', path: '/docs/cli', heading: 'programmatic' },
 
+  // Reality Mode
+  { title: 'Reality Mode', content: 'Chaos engineering simulation engine controlled instability latency failures drops', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'why' },
+  { title: 'Chaos Quick Start', content: 'Enable chaos --chaos flag phantomback start zero chaos', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'quick-start' },
+  { title: 'Chaos Scenarios', content: 'Latency spike failure drop corruption timeout chaos scenario', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'scenarios' },
+  { title: 'Chaos Configuration', content: 'chaos enabled latency failureRate errorCodes connectionDropRate corruptionRate timeoutRate scenarios', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'configuration' },
+  { title: 'Chaos CLI Flags', content: '--chaos --chaos-failure --chaos-latency command line flags', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'cli' },
+  { title: 'Runtime Control API', content: '/_chaos/status enable disable pause resume configure reset endpoints', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'runtime-control' },
+  { title: 'Chaos Recipes', content: 'Test loading states error handling network outage gradually increase chaos', section: 'Reality Mode', path: '/docs/reality-mode', heading: 'recipes' },
+
   // Changelog
+  { title: 'v1.1.0', content: 'Reality Mode chaos engineering latency failures connection drops corruption timeouts runtime control API', section: 'Changelog', path: '/docs/changelog', heading: 'v1.1.0' },
   { title: 'v1.0.0', content: 'Initial release zero-config mode 40+ field types JWT auth search filtering sorting nested routes CLI', section: 'Changelog', path: '/docs/changelog', heading: 'v1.0.0' },
 
   // Playground

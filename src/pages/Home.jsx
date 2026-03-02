@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import {
-  Ghost, Zap, Shield, Database, Search, Terminal, Layers,
+  Ghost, Zap, Shield, Database, Search, Terminal, Layers, FlameKindling,
   ArrowRight, Copy, Check, Github, Package, Star, Sparkles,
+  Timer, ServerCrash, Unplug, FileWarning, Hourglass,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -17,6 +18,7 @@ const features = [
   { icon: Search, title: 'Full-text Search', desc: 'Search, filter, sort, and paginate across any resource with query params.', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
   { icon: Layers, title: 'Nested Routes', desc: 'Auto-detects relations and creates nested endpoints like /posts/1/comments.', color: 'text-violet-400', bg: 'bg-violet-500/10' },
   { icon: Terminal, title: 'Powerful CLI', desc: 'Start servers, scaffold configs, customize ports and prefixes from the terminal.', color: 'text-rose-400', bg: 'bg-rose-500/10' },
+  { icon: FlameKindling, title: 'Reality Mode', desc: 'Chaos engineering for your fake backend — inject latency, failures, and dropped connections.', color: 'text-orange-400', bg: 'bg-orange-500/10' },
 ];
 
 const fadeUp = {
@@ -108,18 +110,20 @@ export default function Home() {
             className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-foreground mb-6"
           >
             <span className="bg-gradient-to-r from-primary via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-              Instant Fake Backend
+              Fake Backend.
             </span>
             <br />
-            in Seconds
+            <span className="bg-gradient-to-r from-orange-400 via-red-400 to-rose-500 bg-clip-text text-transparent">
+              Real-World Chaos.
+            </span>
           </motion.h1>
 
           {/* Description */}
           <motion.p variants={fadeUp} transition={{ duration: 0.35 }}
             className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl mx-auto"
           >
-            Generate a full REST API with realistic data, authentication,
-            pagination, search, filtering & nested routes — zero config needed.
+            Instant REST API with realistic data, auth, pagination & search — then flip on
+            Reality Mode to inject latency, failures, and dropped connections. Build resilient frontends from day one.
           </motion.p>
 
           {/* Copy command */}
@@ -184,8 +188,63 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Reality Mode Showcase ─── */}
+      <section className="relative py-28 px-6 bg-card/30 overflow-hidden">
+        {/* Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[radial-gradient(circle,#f97316_0%,transparent_60%)] opacity-[0.06] pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <span className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 border border-orange-500/20 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-4">
+              <FlameKindling size={13} />
+              Reality Mode
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Chaos Engineering for Your
+              <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent"> Fake Backend</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Production APIs are unreliable. Reality Mode injects controlled instability so your frontend
+              handles failures gracefully — before your users hit them.
+            </p>
+          </div>
+
+          {/* Scenario cards */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5 mb-12">
+            {[
+              { icon: Timer, label: 'Latency Spikes', desc: '200–5000ms random delay', color: 'text-amber-400', bg: 'bg-amber-500/10' },
+              { icon: ServerCrash, label: 'Random Failures', desc: '500, 502, 503, 504 errors', color: 'text-red-400', bg: 'bg-red-500/10' },
+              { icon: Unplug, label: 'Connection Drops', desc: 'Socket destroyed mid-request', color: 'text-rose-400', bg: 'bg-rose-500/10' },
+              { icon: FileWarning, label: 'Corruption', desc: 'Malformed JSON responses', color: 'text-orange-400', bg: 'bg-orange-500/10' },
+              { icon: Hourglass, label: 'Timeouts', desc: 'Requests hang forever', color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
+            ].map(({ icon: Icon, label, desc, color, bg }) => (
+              <div key={label} className="rounded-xl border border-border/60 bg-card/80 p-5 text-center hover:border-orange-500/30 transition-all">
+                <div className={cn('flex items-center justify-center w-10 h-10 rounded-lg mx-auto mb-3', bg)}>
+                  <Icon size={18} className={color} />
+                </div>
+                <h4 className="text-sm font-semibold text-foreground mb-1">{label}</h4>
+                <p className="text-xs text-muted-foreground">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* One-liner + link */}
+          <div className="text-center">
+            <code className="inline-block text-sm font-mono text-foreground/70 bg-surface2 px-5 py-2.5 rounded-xl border border-border/40 mb-6">
+              phantomback start --zero --chaos
+            </code>
+            <p className="text-sm text-muted-foreground">
+              One flag to enable. Runtime API to control.{' '}
+              <Link to="/docs/reality-mode" className="text-primary font-medium hover:underline">
+                Read the full docs &rarr;
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ─── How It Works ─── */}
-      <section className="py-28 px-6 bg-card/30">
+      <section className="py-28 px-6">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-16">
             <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-4">
@@ -203,7 +262,7 @@ export default function Home() {
             {[
               { num: '1', title: 'Install', desc: 'Install globally or use npx', code: 'npm install -g phantomback' },
               { num: '2', title: 'Start the Server', desc: 'Launch with zero-config mode', code: 'phantomback start --zero' },
-              { num: '3', title: 'Use the API', desc: 'Full CRUD ready immediately', code: 'GET http://localhost:3777/api/users' },
+              { num: '3', title: 'Add Chaos', desc: 'Enable Reality Mode for resilience testing', code: 'phantomback start --zero --chaos' },
             ].map((step) => (
               <div key={step.num}
                 className="flex items-start gap-5 rounded-2xl border border-border/60 bg-card/80 p-6 hover:border-primary/20 transition-colors"
@@ -228,10 +287,10 @@ export default function Home() {
       <section className="py-28 px-6 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Ready to build faster?
+            Ready to build resilient apps?
           </h2>
           <p className="text-lg text-muted-foreground mb-10">
-            Stop waiting for the backend. Start building your frontend now.
+            Instant fake backend. Real-world chaos testing. All in one tool.
           </p>
           <Link to="/docs/getting-started"
             className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 hover:brightness-110 transition-all"

@@ -8,6 +8,7 @@ const Configuration = lazy(() => import('./pages/Configuration'));
 const ApiReference = lazy(() => import('./pages/ApiReference'));
 const Examples = lazy(() => import('./pages/Examples'));
 const CliReference = lazy(() => import('./pages/CliReference'));
+const RealityMode = lazy(() => import('./pages/RealityMode'));
 const Changelog = lazy(() => import('./pages/Changelog'));
 const Playground = lazy(() => import('./pages/Playground'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/docs/getting-started" element={<GettingStarted />} />
           <Route path="/docs/configuration" element={<Configuration />} />
           <Route path="/docs/api-reference" element={<ApiReference />} />
+          <Route path="/docs/reality-mode" element={<RealityMode />} />
           <Route path="/docs/examples" element={<Examples />} />
           <Route path="/docs/cli" element={<CliReference />} />
           <Route path="/docs/changelog" element={<Changelog />} />
