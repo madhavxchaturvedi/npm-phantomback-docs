@@ -1,4 +1,4 @@
-import CodeBlock from '@/components/CodeBlock';
+import CodeBlock, { CodeTabs } from '@/components/CodeBlock';
 import Callout from '@/components/docs/Callout';
 import NextPageLink from '@/components/docs/NextPageLink';
 
@@ -13,14 +13,22 @@ export default function GettingStarted() {
         Get a fully functional REST API running in under 30 seconds — no database, no backend code required.
       </p>
 
+      {/* ── Installation ── */}
       <h2 id="installation" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         Installation
       </h2>
       <p className="text-muted-foreground mb-4">Install PhantomBack globally to use the CLI anywhere:</p>
-      <CodeBlock language="bash" title="Terminal" code={`npm install -g phantomback`} />
-      <p className="text-muted-foreground mb-4 mt-4">Or use it directly with npx (no install needed):</p>
-      <CodeBlock language="bash" title="Terminal" code={`npx phantomback start --zero`} />
+      <CodeTabs tabs={[
+        { label: 'npm', language: 'bash', code: 'npm install -g phantomback' },
+        { label: 'yarn', language: 'bash', code: 'yarn global add phantomback' },
+        { label: 'pnpm', language: 'bash', code: 'pnpm add -g phantomback' },
+        { label: 'npx', language: 'bash', code: 'npx phantomback start --zero' },
+      ]} />
+      <Callout type="tip">
+        Using <code className="text-sm font-mono bg-muted text-cyan px-1.5 py-0.5 rounded">npx</code> requires no global install — it downloads and runs PhantomBack in a single command.
+      </Callout>
 
+      {/* ── Zero-Config Mode ── */}
       <h2 id="zero-config" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         Zero-Config Mode
       </h2>
@@ -56,7 +64,12 @@ export default function GettingStarted() {
           </tbody>
         </table>
       </div>
+      <Callout type="info">
+        All five resources are immediately available with full CRUD, pagination, search, filtering, and sorting.
+        The <strong>users</strong> resource also includes JWT authentication endpoints.
+      </Callout>
 
+      {/* ── Custom Configuration ── */}
       <h2 id="custom-config" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         Custom Configuration
       </h2>
@@ -72,18 +85,18 @@ export default function GettingStarted() {
   prefix: '/api',
   resources: {
     users: {
-      count: 20,
+      seed: 20,
       auth: true,
-      schema: {
-        name: 'fullName',
+      fields: {
+        name: 'name',
         email: 'email',
         avatar: 'avatar',
         role: { type: 'enum', values: ['admin', 'user'] },
       },
     },
     posts: {
-      count: 50,
-      schema: {
+      seed: 50,
+      fields: {
         title: 'sentence',
         body: 'paragraphs',
         userId: { type: 'relation', resource: 'users' },
@@ -95,45 +108,42 @@ export default function GettingStarted() {
       <p className="text-muted-foreground mb-4 mt-4">Then start the server:</p>
       <CodeBlock language="bash" title="Terminal" code={`phantomback start`} />
 
+      {/* ── Your First Request ── */}
       <h2 id="your-first-request" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         Your First Request
       </h2>
       <p className="text-muted-foreground mb-4">Once the server is running, make requests with curl, fetch, or any HTTP client:</p>
-      <CodeBlock language="bash" title="Get all users" code={`curl http://localhost:3777/api/users`} />
-      <CodeBlock language="javascript" title="Using fetch" code={`const res = await fetch('http://localhost:3777/api/posts?page=1&limit=5');
+      <CodeTabs tabs={[
+        { label: 'curl', language: 'bash', code: 'curl http://localhost:3777/api/users' },
+        { label: 'fetch', language: 'javascript', code: `const res = await fetch('http://localhost:3777/api/posts?page=1&limit=5');
 const data = await res.json();
 
-console.log(data.data);   // Array of posts
-console.log(data.meta);   // { total, page, totalPages, ... }`} />
+// data.success → true
+// data.data    → Array of posts
+// data.meta    → { total, page, totalPages, ... }` },
+      ]} />
 
-      <h2 id="programmatic" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
-        Programmatic Usage
-      </h2>
-      <p className="text-muted-foreground mb-4">Use PhantomBack as a library in your Node.js project:</p>
-      <CodeBlock language="javascript" title="server.js" code={`import { createPhantom, createPhantomZero } from 'phantomback';
+      <h3 id="response-format" className="text-lg font-semibold text-foreground mt-8 mb-3 scroll-mt-20">
+        Response Format
+      </h3>
+      <p className="text-muted-foreground mb-4">
+        All responses are wrapped in a consistent envelope:
+      </p>
+      <CodeBlock language="json" title="GET /api/posts?page=1&limit=2" code={`{
+  "success": true,
+  "data": [
+    { "id": 1, "title": "...", "body": "...", "userId": 3, "published": true },
+    { "id": 2, "title": "...", "body": "...", "userId": 1, "published": false }
+  ],
+  "meta": {
+    "total": 50,
+    "page": 1,
+    "limit": 2,
+    "totalPages": 25
+  }
+}`} />
 
-// Zero-config
-const server = await createPhantomZero();
-
-// Or with custom config
-const server = await createPhantom({
-  port: 4000,
-  resources: {
-    products: {
-      count: 50,
-      schema: {
-        name: 'productName',
-        price: 'price',
-        category: { type: 'enum', values: ['Electronics', 'Books', 'Clothing'] },
-      },
-    },
-  },
-});
-
-// server.app    → Express instance
-// server.store  → DataStore instance
-// server.stop() → Shut down`} />
-
+      {/* ── Reality Mode ── */}
       <h2 id="reality-mode" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         Reality Mode (Chaos Testing)
       </h2>
@@ -144,6 +154,29 @@ const server = await createPhantom({
       <Callout type="tip">
         Reality Mode helps you build resilient frontends by simulating production failures during development. See the <a href="/docs/reality-mode" className="text-primary hover:underline font-medium">Reality Mode docs</a> for full configuration options.
       </Callout>
+
+      {/* ── What's Next ── */}
+      <h2 id="whats-next" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
+        What's Next?
+      </h2>
+      <ul className="space-y-2 text-muted-foreground mb-8">
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">→</span>
+          <span><a href="/docs/configuration" className="text-primary font-medium hover:underline">Configuration</a> — all config keys, 40+ field types, latency & chaos options</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">→</span>
+          <span><a href="/docs/api-reference" className="text-primary font-medium hover:underline">API Reference</a> — CRUD, pagination, filtering, sorting, search, field selection</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">→</span>
+          <span><a href="/docs/authentication" className="text-primary font-medium hover:underline">Authentication</a> — JWT auth with register, login & protected routes</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">→</span>
+          <span><a href="/docs/programmatic-api" className="text-primary font-medium hover:underline">Programmatic API</a> — use PhantomBack as a library in tests or custom servers</span>
+        </li>
+      </ul>
 
       <NextPageLink to="/docs/configuration" label="Configuration Guide" />
     </article>

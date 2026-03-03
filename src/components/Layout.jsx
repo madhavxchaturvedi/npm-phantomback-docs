@@ -1,5 +1,5 @@
 import { NavLink, Outlet, Link, useLocation } from 'react-router-dom';
-import { Ghost, BookOpen, Settings, Code2, Layers, Terminal, Github, Menu, X, Search, Package, History, Play, Star, Zap } from 'lucide-react';
+import { Ghost, BookOpen, Settings, Code2, Layers, Terminal, Github, Menu, X, Search, Package, History, Play, Star, Zap, Shield, Braces } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -12,11 +12,13 @@ const navItems = [
   { to: '/docs/getting-started', label: 'Getting Started', icon: BookOpen },
   { to: '/docs/configuration', label: 'Configuration', icon: Settings },
   { to: '/docs/api-reference', label: 'API Reference', icon: Code2 },
+  { to: '/docs/authentication', label: 'Authentication', icon: Shield },
   { to: '/docs/reality-mode', label: 'Reality Mode', icon: Zap },
+  { to: '/docs/programmatic-api', label: 'Programmatic API', icon: Braces },
   { to: '/docs/examples', label: 'Examples', icon: Layers },
   { to: '/docs/cli', label: 'CLI Reference', icon: Terminal },
-  { to: '/docs/changelog', label: 'Changelog', icon: History },
   { to: '/docs/playground', label: 'Playground', icon: Play },
+  { to: '/docs/changelog', label: 'Changelog', icon: History },
 ];
 
 export default function Layout() {
@@ -49,7 +51,7 @@ export default function Layout() {
               <span className="font-bold tracking-tight">PhantomBack</span>
             </Link>
             <span className="hidden sm:inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
-              v1.1.0
+              v2.0.0
             </span>
           </div>
 

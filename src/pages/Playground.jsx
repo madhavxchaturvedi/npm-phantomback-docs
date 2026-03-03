@@ -9,11 +9,11 @@ const defaultConfig = `{
   "port": 3000,
   "resources": {
     "posts": {
-      "count": 5,
+      "seed": 5,
       "fields": {
         "title": "sentence",
         "body": "paragraph",
-        "author": "fullName",
+        "author": "name",
         "published": "boolean",
         "views": "number",
         "createdAt": "pastDate"
@@ -33,15 +33,15 @@ const examples = [
   "port": 3000,
   "resources": {
     "products": {
-      "count": 10,
+      "seed": 10,
       "fields": {
-        "name": "productName",
+        "name": "product",
         "price": "price",
         "description": "paragraph",
         "category": { "type": "enum", "values": ["Electronics", "Clothing", "Books", "Home"] },
         "inStock": "boolean",
         "rating": "float",
-        "image": "imageUrl"
+        "image": "image"
       }
     }
   }
@@ -54,7 +54,7 @@ const examples = [
   "auth": true,
   "resources": {
     "todos": {
-      "count": 8,
+      "seed": 8,
       "fields": {
         "title": "sentence",
         "completed": "boolean",
@@ -77,7 +77,7 @@ function generateFakeData(config) {
     }
 
     for (const [name, res] of Object.entries(parsed.resources)) {
-      const count = res.count || 3;
+      const count = res.seed || res.count || 3;
       const items = [];
       for (let i = 1; i <= Math.min(count, 5); i++) {
         const item = { id: i };
@@ -115,6 +115,7 @@ function generateFieldValue(field, type, i) {
   const generators = {
     sentence: () => ['The quick brown fox jumps', 'A tale of two cities begins', 'Lorem ipsum dolor sit amet', 'Exploring new frontiers today', 'Building modern applications fast'][i % 5],
     paragraph: () => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    name: () => ['Alice Johnson', 'Bob Smith', 'Charlie Brown', 'Diana Prince', 'Eve Wilson'][i % 5],
     fullName: () => ['Alice Johnson', 'Bob Smith', 'Charlie Brown', 'Diana Prince', 'Eve Wilson'][i % 5],
     firstName: () => ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'][i % 5],
     lastName: () => ['Johnson', 'Smith', 'Brown', 'Prince', 'Wilson'][i % 5],
@@ -123,7 +124,9 @@ function generateFieldValue(field, type, i) {
     number: () => Math.floor(Math.random() * 1000),
     float: () => +(Math.random() * 5).toFixed(1),
     price: () => `$${(Math.random() * 100).toFixed(2)}`,
+    product: () => ['Widget Pro', 'Gadget X', 'Super Gizmo', 'MegaTool', 'TurboThing'][i % 5],
     productName: () => ['Widget Pro', 'Gadget X', 'Super Gizmo', 'MegaTool', 'TurboThing'][i % 5],
+    image: () => `https://picsum.photos/seed/${i}/200/200`,
     imageUrl: () => `https://picsum.photos/seed/${i}/200/200`,
     pastDate: () => `2024-${String(i).padStart(2, '0')}-15T10:00:00Z`,
     futureDate: () => `2026-${String(i).padStart(2, '0')}-15T10:00:00Z`,

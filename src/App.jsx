@@ -6,9 +6,11 @@ const Home = lazy(() => import('./pages/Home'));
 const GettingStarted = lazy(() => import('./pages/GettingStarted'));
 const Configuration = lazy(() => import('./pages/Configuration'));
 const ApiReference = lazy(() => import('./pages/ApiReference'));
+const Authentication = lazy(() => import('./pages/Authentication'));
+const RealityMode = lazy(() => import('./pages/RealityMode'));
+const ProgrammaticApi = lazy(() => import('./pages/ProgrammaticApi'));
 const Examples = lazy(() => import('./pages/Examples'));
 const CliReference = lazy(() => import('./pages/CliReference'));
-const RealityMode = lazy(() => import('./pages/RealityMode'));
 const Changelog = lazy(() => import('./pages/Changelog'));
 const Playground = lazy(() => import('./pages/Playground'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -30,7 +32,9 @@ export default function App() {
           <Route path="/docs/getting-started" element={<GettingStarted />} />
           <Route path="/docs/configuration" element={<Configuration />} />
           <Route path="/docs/api-reference" element={<ApiReference />} />
+          <Route path="/docs/authentication" element={<Authentication />} />
           <Route path="/docs/reality-mode" element={<RealityMode />} />
+          <Route path="/docs/programmatic-api" element={<ProgrammaticApi />} />
           <Route path="/docs/examples" element={<Examples />} />
           <Route path="/docs/cli" element={<CliReference />} />
           <Route path="/docs/changelog" element={<Changelog />} />

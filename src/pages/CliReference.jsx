@@ -97,37 +97,6 @@ npx phantomback init
 # Custom port with npx
 npx phantomback start --zero --port 5000`} />
 
-      <h2 id="programmatic" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
-        Programmatic API
-      </h2>
-      <p className="text-muted-foreground mb-4">Import and use PhantomBack in your Node.js scripts:</p>
-      <CodeBlock language="javascript" title="server.js" code={`import { createPhantom, createPhantomZero } from 'phantomback';
-
-// Quick start — zero config
-const server = await createPhantomZero();
-
-// Full control
-const server = await createPhantom({
-  port: 4000,
-  prefix: '/api/v2',
-  resources: {
-    products: {
-      count: 100,
-      schema: {
-        name: 'productName',
-        price: 'price',
-      },
-    },
-  },
-});
-
-// Available on the server object:
-server.app;       // Express app instance
-server.store;     // DataStore (Map-based in-memory DB)
-server.stop();    // Shut down the server
-server.reset();   // Reset all data to initial seed
-server.getStore(); // Get raw store data as JSON`} />
-
       <h2 id="tips" className="text-xl font-semibold text-foreground mt-10 mb-4 scroll-mt-20">
         Tips
       </h2>
@@ -141,7 +110,7 @@ server.getStore(); // Get raw store data as JSON`} />
         PhantomBack is a development tool. Never use it as a production backend — data is not persisted and there is no real security.
       </Callout>
 
-      <NextPageLink to="/docs/changelog" label="Changelog" />
+      <NextPageLink to="/docs/playground" label="Playground" />
     </article>
   );
 }

@@ -22,10 +22,10 @@ export default function Examples() {
   prefix: '/api',
   resources: {
     users: {
-      count: 20,
+      seed: 20,
       auth: true,
-      schema: {
-        name: 'fullName',
+      fields: {
+        name: 'name',
         email: 'email',
         avatar: 'avatar',
         bio: 'paragraph',
@@ -33,16 +33,16 @@ export default function Examples() {
       },
     },
     categories: {
-      count: 8,
-      schema: {
+      seed: 8,
+      fields: {
         name: { type: 'enum', values: ['Tech', 'Design', 'Business', 'Science', 'Health', 'Travel', 'Food', 'Sports'] },
         slug: 'slug',
         description: 'sentence',
       },
     },
     posts: {
-      count: 60,
-      schema: {
+      seed: 60,
+      fields: {
         title: 'sentence',
         slug: 'slug',
         body: 'paragraphs',
@@ -54,8 +54,8 @@ export default function Examples() {
       },
     },
     comments: {
-      count: 150,
-      schema: {
+      seed: 150,
+      fields: {
         body: 'paragraph',
         userId: { type: 'relation', resource: 'users' },
         postId: { type: 'relation', resource: 'posts' },
@@ -73,10 +73,10 @@ export default function Examples() {
   prefix: '/api',
   resources: {
     users: {
-      count: 30,
+      seed: 30,
       auth: true,
-      schema: {
-        name: 'fullName',
+      fields: {
+        name: 'name',
         email: 'email',
         avatar: 'avatar',
         address: 'address',
@@ -84,17 +84,17 @@ export default function Examples() {
       },
     },
     categories: {
-      count: 10,
-      schema: {
-        name: 'productName',
+      seed: 10,
+      fields: {
+        name: 'product',
         image: 'image',
         description: 'sentence',
       },
     },
     products: {
-      count: 80,
-      schema: {
-        name: 'productName',
+      seed: 80,
+      fields: {
+        name: 'product',
         price: 'price',
         description: 'paragraph',
         image: 'image',
@@ -105,8 +105,8 @@ export default function Examples() {
       },
     },
     orders: {
-      count: 100,
-      schema: {
+      seed: 100,
+      fields: {
         total: 'price',
         status: { type: 'enum', values: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'] },
         address: 'address',
@@ -114,8 +114,8 @@ export default function Examples() {
       },
     },
     reviews: {
-      count: 200,
-      schema: {
+      seed: 200,
+      fields: {
         rating: 'rating',
         comment: 'paragraph',
         userId: { type: 'relation', resource: 'users' },
@@ -134,18 +134,18 @@ export default function Examples() {
   prefix: '/api',
   resources: {
     departments: {
-      count: 8,
-      schema: {
+      seed: 8,
+      fields: {
         name: { type: 'enum', values: ['Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Emergency', 'Surgery', 'Radiology'] },
         floor: 'number',
-        headDoctor: 'fullName',
+        headDoctor: 'name',
       },
     },
     doctors: {
-      count: 25,
+      seed: 25,
       auth: true,
-      schema: {
-        name: 'fullName',
+      fields: {
+        name: 'name',
         email: 'email',
         phone: 'phone',
         specialization: { type: 'enum', values: ['Cardiologist', 'Neurologist', 'Surgeon', 'Pediatrician', 'Oncologist'] },
@@ -155,9 +155,9 @@ export default function Examples() {
       },
     },
     patients: {
-      count: 60,
-      schema: {
-        name: 'fullName',
+      seed: 60,
+      fields: {
+        name: 'name',
         email: 'email',
         phone: 'phone',
         dateOfBirth: 'pastDate',
@@ -166,8 +166,8 @@ export default function Examples() {
       },
     },
     appointments: {
-      count: 100,
-      schema: {
+      seed: 100,
+      fields: {
         date: 'futureDate',
         status: { type: 'enum', values: ['scheduled', 'completed', 'cancelled', 'no-show'] },
         notes: 'sentence',
@@ -187,10 +187,10 @@ export default function Examples() {
   prefix: '/api',
   resources: {
     instructors: {
-      count: 15,
+      seed: 15,
       auth: true,
-      schema: {
-        name: 'fullName',
+      fields: {
+        name: 'name',
         email: 'email',
         avatar: 'avatar',
         bio: 'paragraph',
@@ -199,8 +199,8 @@ export default function Examples() {
       },
     },
     courses: {
-      count: 40,
-      schema: {
+      seed: 40,
+      fields: {
         title: 'sentence',
         description: 'paragraphs',
         thumbnail: 'image',
@@ -212,17 +212,17 @@ export default function Examples() {
       },
     },
     students: {
-      count: 100,
-      schema: {
-        name: 'fullName',
+      seed: 100,
+      fields: {
+        name: 'name',
         email: 'email',
         avatar: 'avatar',
         enrolledAt: 'pastDate',
       },
     },
     reviews: {
-      count: 200,
-      schema: {
+      seed: 200,
+      fields: {
         rating: 'rating',
         comment: 'paragraph',
         courseId: { type: 'relation', resource: 'courses' },
@@ -241,8 +241,8 @@ export default function Examples() {
   prefix: '/api',
   resources: {
     restaurants: {
-      count: 20,
-      schema: {
+      seed: 20,
+      fields: {
         name: 'company',
         cuisine: { type: 'enum', values: ['Italian', 'Chinese', 'Indian', 'Mexican', 'Japanese', 'Thai', 'American', 'Mediterranean'] },
         rating: 'rating',
@@ -253,9 +253,9 @@ export default function Examples() {
       },
     },
     menuItems: {
-      count: 100,
-      schema: {
-        name: 'productName',
+      seed: 100,
+      fields: {
+        name: 'product',
         description: 'sentence',
         price: 'price',
         image: 'image',
@@ -265,9 +265,9 @@ export default function Examples() {
       },
     },
     orders: {
-      count: 80,
+      seed: 80,
       auth: true,
-      schema: {
+      fields: {
         total: 'price',
         status: { type: 'enum', values: ['placed', 'preparing', 'out-for-delivery', 'delivered', 'cancelled'] },
         address: 'address',
@@ -286,11 +286,11 @@ export default function Examples() {
   prefix: '/api',
   resources: {
     users: {
-      count: 50,
+      seed: 50,
       auth: true,
-      schema: {
+      fields: {
         username: 'username',
-        name: 'fullName',
+        name: 'name',
         email: 'email',
         avatar: 'avatar',
         bio: 'sentence',
@@ -300,26 +300,26 @@ export default function Examples() {
       },
     },
     posts: {
-      count: 200,
-      schema: {
+      seed: 200,
+      fields: {
         caption: 'sentence',
         image: 'image',
         likes: 'number',
         userId: { type: 'relation', resource: 'users' },
-        tags: { type: 'array', items: 'word', min: 1, max: 5 },
+        tags: { type: 'array', items: 'word', count: 3 },
       },
     },
     comments: {
-      count: 500,
-      schema: {
+      seed: 500,
+      fields: {
         text: 'sentence',
         userId: { type: 'relation', resource: 'users' },
         postId: { type: 'relation', resource: 'posts' },
       },
     },
     messages: {
-      count: 300,
-      schema: {
+      seed: 300,
+      fields: {
         text: 'sentence',
         read: 'boolean',
         userId: { type: 'relation', resource: 'users' },

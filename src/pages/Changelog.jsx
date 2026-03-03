@@ -2,12 +2,28 @@ import { cn } from '@/lib/utils';
 
 const changelog = [
   {
+    version: '2.0.0',
+    date: '2025-07-01',
+    changes: [
+      { type: 'added', text: 'Dedicated Authentication documentation page' },
+      { type: 'added', text: 'Dedicated Programmatic API reference page with full DataStore and ChaosEngine methods' },
+      { type: 'changed', text: 'Complete documentation redesign — two-pillar showcase (Fake Backend + Reality Mode)' },
+      { type: 'changed', text: 'Config terminology updated: schema → fields, count → seed, delay → latency' },
+      { type: 'changed', text: 'Field type names corrected: fullName → name, productName → product, imageUrl → image' },
+      { type: 'changed', text: 'Reality Mode docs — fixed chaos priority order to drop → timeout → failure → corruption → latency' },
+      { type: 'changed', text: 'All API endpoint paths now reflect correct prefix (e.g. /api/_chaos, /api/_health)' },
+      { type: 'changed', text: 'Response format documentation updated to show success: true/false wrapper' },
+      { type: 'changed', text: 'Playground presets updated with correct field type names' },
+      { type: 'changed', text: 'All 6 example configs updated with correct seed/fields terminology' },
+    ],
+  },
+  {
     version: '1.1.0',
     date: '2025-06-25',
     changes: [
       { type: 'added', text: 'Reality Mode — chaos engineering simulation engine for controlled instability' },
       { type: 'added', text: '5 chaos scenarios: latency spikes, random failures, connection drops, response corruption, request timeouts' },
-      { type: 'added', text: 'Runtime control API endpoints (/_chaos/status, enable, disable, pause, resume, configure, reset)' },
+      { type: 'added', text: 'Runtime control API endpoints (/api/_chaos — status, enable, disable, pause, resume, configure, reset)' },
       { type: 'added', text: 'CLI flags: --chaos, --chaos-failure, --chaos-latency' },
       { type: 'added', text: 'Programmatic chaos engine access via server.getChaos()' },
       { type: 'added', text: 'Deep-merge for nested chaos config (latency, errorCodes, scenarios)' },
@@ -29,10 +45,10 @@ const changelog = [
       { type: 'added', text: 'Relation fields with auto-generated nested routes' },
       { type: 'added', text: 'Special field types: enum, object, array, relation' },
       { type: 'added', text: 'Validation rules for POST/PUT/PATCH requests' },
-      { type: 'added', text: 'Response delay simulation (fixed, random, range)' },
+      { type: 'added', text: 'Response latency simulation (fixed, random, range)' },
       { type: 'added', text: 'CLI with start and init commands' },
       { type: 'added', text: 'Programmatic API: createPhantom and createPhantomZero' },
-      { type: 'added', text: 'Health check endpoint at /health' },
+      { type: 'added', text: 'Health check endpoint at {prefix}/_health' },
       { type: 'added', text: 'Custom port, prefix, and config file options' },
     ],
   },
